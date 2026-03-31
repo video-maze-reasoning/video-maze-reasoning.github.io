@@ -6,472 +6,406 @@
   <title>Video Models Reason Early</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="static/style.css">
+  <style>
+    :root {
+      --accent-1: #6c5ce7;
+      --accent-2: #00b894;
+      --dark: #1a1a2e;
+      --text: #ededf0;
+      --text-dim: #a0aec0;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(160deg, #1a1636 0%, #252247 30%, #3d3675 65%, #302b5a 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 48px 24px;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* Coming soon - prominent at top */
+    .coming-soon-top {
+      display: inline-block;
+      padding: 16px 44px;
+      border-radius: 14px;
+      font-size: 2.0rem;
+      font-weight: 700;
+      color: var(--accent-2);
+      background: rgba(0, 184, 148, 0.1);
+      border: 2px solid rgba(0, 184, 148, 0.3);
+      margin-bottom: 44px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 3.4rem;
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 .highlight {
+      background: linear-gradient(135deg, #a29bfe, #6c5ce7, #00b894, #55efc4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .authors {
+      font-size: 1.4rem;
+      color: #d4dce6;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .affiliation {
+      font-size: 1.15rem;
+      color: var(--text-dim);
+      margin-bottom: 36px;
+    }
+
+    .synopsis {
+      font-size: 1.4rem;
+      line-height: 1.7;
+      color: #cdd5de;
+      max-width: 820px;
+      margin: 0 auto 44px;
+    }
+    .synopsis strong { color: #a29bfe; }
+
+    .links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+    .links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 11px 24px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .links a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    }
+    .btn-paper { background: linear-gradient(135deg, #e74c3c, #c0392b); color: #fff; }
+    .btn-arxiv { background: linear-gradient(135deg, #e17055, #d63031); color: #fff; }
+    .btn-code  { background: linear-gradient(135deg, #2d3436, #636e72); color: #fff; }
+
+    /* Divider */
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+      border-radius: 2px;
+      margin: 0 auto 48px;
+    }
+
+    /* Section titles */
+    .section-title {
+      font-size: 2.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .section-desc {
+      font-size: 1.35rem;
+      line-height: 1.65;
+      color: #c5ced8;
+      max-width: 750px;
+      margin: 0 auto 32px;
+    }
+    .section-desc strong { color: #c8d6e5; }
+
+    /* Lockin video strip */
+    .lockin-strip {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin-bottom: 56px;
+      width: 100vw;
+      max-width: 1700px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0 24px;
+    }
+    .lockin-strip video {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .lockin-strip .step-label {
+      margin-top: 5px;
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+
+    /* Ghost video grid */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 56px;
+    }
+    .video-grid video {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .video-label {
+      margin-top: 6px;
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    /* Result stats row */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto 56px;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a29bfe, #55efc4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+    }
+    .stat-label {
+      font-size: 1rem;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    /* BibTeX */
+    .bibtex-section {
+      max-width: 700px;
+      margin: 0 auto 40px;
+      text-align: left;
+    }
+    .bibtex-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .bibtex-box {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      padding: 20px 24px;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #a8d8ea;
+      overflow-x: auto;
+      position: relative;
+    }
+    .bibtex-box .copy-btn {
+      position: absolute;
+      top: 10px; right: 12px;
+      background: rgba(255,255,255,0.1);
+      color: #ccc;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .bibtex-box .copy-btn:hover { background: rgba(255,255,255,0.2); }
+
+    .footer {
+      margin-top: 60px;
+      font-size: 0.8rem;
+      color: #555;
+    }
+    .footer a { color: var(--accent-1); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      .video-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+      .lockin-strip { grid-template-columns: repeat(3, 1fr); }
+      .stats-row { grid-template-columns: 1fr; gap: 32px; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ==================== HERO ==================== -->
-<header class="hero">
-  <div class="container">
-    <h1 class="animate-in">
-      Video Models <span class="highlight">Reason Early</span>:<br>
-      Exploiting Plan Commitment for Maze Solving
-    </h1>
-    <p class="authors animate-in delay-1">Kaleb Newman &nbsp;&middot;&nbsp; Tyler Zhu &nbsp;&middot;&nbsp; Olga Russakovsky</p>
-    <p class="affiliation animate-in delay-2">Princeton University</p>
-    <div class="links animate-in delay-3">
-      <a href="#" class="btn-paper">&#128196; Paper</a>
-      <a href="#" class="btn-arxiv">&#128218; arXiv</a>
-      <a href="#" class="btn-code">&#128187; Code</a>
+<div class="wrapper">
+
+  <div class="coming-soon-top">
+    Full project page coming soon
+  </div>
+
+  <h1>
+    Video Models <span class="highlight">Reason Early</span>:
+    Exploiting Plan Commitment for Maze Solving
+  </h1>
+
+  <p class="authors">Kaleb Newman &nbsp;&middot;&nbsp; Tyler Zhu &nbsp;&middot;&nbsp; Olga Russakovsky</p>
+  <p class="affiliation">Princeton University</p>
+
+  <p class="synopsis">
+    Video diffusion models commit to a high-level motion plan within the first few denoising steps when solving mazesW.
+    We exploit this <strong>early plan commitment</strong> to build ChEaP, which screens diverse candidate
+    trajectories early and chains them together to solve mazes far beyond the single-generation horizon&mdash;improving
+    accuracy from <strong>7% to 67%</strong> on long mazes and by <strong>2.5&times;</strong> overall on hard tasks.
+  </p>
+
+  <div class="links">
+    <a href="#" class="btn-paper">&#128196; Paper</a>
+    <a href="#" class="btn-arxiv">&#128218; arXiv</a>
+    <!-- <a href="#" class="btn-code">&#128187; Code</a> -->
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ==================== EARLY PLAN COMMITMENT ==================== -->
+  <div class="section-title">The Plan Is Decided Early</div>
+  <p class="section-desc">
+    By decoding intermediate predictions during denoising, we find that the model's motion trajectory
+    is <strong>already committed within the first few steps</strong>. The remaining steps refine
+    visual details but almost never change the underlying route.
+  </p>
+
+  <div class="lockin-strip">
+    <div>
+      <video autoplay muted loop playsinline>
+        <source src="videos_cropped/lockin/x0_step_001.mp4" type="video/mp4">
+      </video>
+      <div class="step-label">Step 1 / 40</div>
+    </div>
+    <div>
+      <video autoplay muted loop playsinline>
+        <source src="videos_cropped/lockin/x0_step_002.mp4" type="video/mp4">
+      </video>
+      <div class="step-label">Step 2 / 40</div>
+    </div>
+    <div>
+      <video autoplay muted loop playsinline>
+        <source src="videos_cropped/lockin/x0_step_005.mp4" type="video/mp4">
+      </video>
+      <div class="step-label">Step 5 / 40</div>
+    </div>
+    <div>
+      <video autoplay muted loop playsinline>
+        <source src="videos_cropped/lockin/x0_step_010.mp4" type="video/mp4">
+      </video>
+      <div class="step-label">Step 10 / 40</div>
+    </div>
+    <div>
+      <video autoplay muted loop playsinline>
+        <source src="videos_cropped/lockin/x0_step_020.mp4" type="video/mp4">
+      </video>
+      <div class="step-label">Step 20 / 40</div>
+    </div>
+    <div>
+      <video autoplay muted loop playsinline>
+        <source src="videos_cropped/lockin/final.mp4" type="video/mp4">
+      </video>
+      <div class="step-label">Final (40 / 40)</div>
     </div>
   </div>
-</header>
 
-<!-- ==================== ABSTRACT ==================== -->
-<section id="abstract">
-  <div class="container narrow">
-    <h2>Abstract</h2>
-    <div class="abstract-box">
-      <p>
-        Video diffusion models exhibit emergent reasoning capabilities like solving mazes and puzzles,
-        yet little is understood about <em>how</em> they reason during generation.
-        We study the internal planning dynamics of video models using 2D maze-solving as a controlled testbed
-        and reveal two findings.
-        First, <strong>early plan commitment</strong>: video diffusion models commit to a high-level motion plan
-        within the first few denoising steps, after which further denoising alters visual details but not the
-        underlying trajectory.
-        Second, <strong>path length</strong>&mdash;not obstacle density&mdash;is the dominant predictor of maze difficulty,
-        with a sharp failure threshold at 12 steps.
-        To demonstrate the practical benefits of these findings, we introduce
-        <strong>Ch</strong>aining with <strong>Ea</strong>rly <strong>P</strong>lanning (<strong>ChEaP</strong>),
-        which only spends compute on seeds with promising early plans and chains them together to tackle complex mazes.
-        ChEaP improves accuracy from 7% to 67% on long-horizon mazes and by 2.5&times; overall on hard tasks
-        in Frozen Lake and VR-Bench across Wan2.2-14B and HunyuanVideo-1.5.
-      </p>
+  <!-- ==================== SCREENING ==================== -->
+  <div class="section-title">Screening Diverse Candidate Plans</div>
+  <p class="section-desc">
+    Since early plans predict final outcomes, we screen many candidates cheaply and only
+    fully render the most promising ones. Different noise seeds produce strikingly different
+    trajectories on the same maze&mdash;failed paths appear as gray silhouettes,
+    the successful trajectory in vivid color.
+  </p>
+
+  <div class="video-grid">
+    <div>
+      <video autoplay muted loop playsinline>
+        <source src="videos_cropped/ghost_x0_size4_lake65_maze005.mp4" type="video/mp4">
+      </video>
+      <div class="video-label">4&times;4 Maze</div>
+    </div>
+    <div>
+      <video autoplay muted loop playsinline>
+        <source src="videos_cropped/ghost_x0_size6_lake65_maze001.mp4" type="video/mp4">
+      </video>
+      <div class="video-label">6&times;6 Maze</div>
+    </div>
+    <div>
+      <video autoplay muted loop playsinline>
+        <source src="videos_cropped/ghost_x0_size8_lake50_maze006.mp4" type="video/mp4">
+      </video>
+      <div class="video-label">8&times;8 Maze</div>
     </div>
   </div>
-</section>
 
-<!-- ==================== KEY FINDINGS ==================== -->
-<section id="findings" class="section-alt">
-  <div class="container">
-    <h2>Key Findings</h2>
-    <div class="findings-grid">
-      <div class="finding-card">
-        <div class="number">93%</div>
-        <h3>Convergence at Step 5</h3>
-        <p>Trajectories are 93% converged after only 5 of 40 denoising steps.</p>
-      </div>
-      <div class="finding-card">
-        <div class="number">3.3&times;</div>
-        <h3>More Efficient</h3>
-        <p>EPBS matches best-of-N accuracy using 3.3&times; fewer function evaluations.</p>
-      </div>
-      <div class="finding-card">
-        <div class="number">7%&rarr;67%</div>
-        <h3>Long-Horizon Gains</h3>
-        <p>Chaining enables solving mazes far beyond the single-generation horizon.</p>
-      </div>
-      <div class="finding-card">
-        <div class="number">2.5&times;</div>
-        <h3>Overall Accuracy</h3>
-        <p>Up to 2.5&times; gains on hard tasks across Frozen Lake and VR-Bench.</p>
-      </div>
+  <div class="divider"></div>
+
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-number">+12%</div>
+      <div class="stat-label">avg. accuracy gain across<br>all maze sizes over best-of-N</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">7%&rarr;67%</div>
+      <div class="stat-label">accuracy on long-horizon<br>mazes</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">0.3&times;</div>
+      <div class="stat-label">the diffusion steps needed<br>to match best-of-N</div>
     </div>
   </div>
-</section>
 
-<!-- ==================== EARLY PLAN COMMITMENT ==================== -->
-<section id="commitment">
-  <div class="container">
-    <h2>Early Plan Commitment</h2>
-    <p class="section-subtitle">
-      Video diffusion models commit to a trajectory plan within the first few denoising steps.
-      Later steps refine visual fidelity&mdash;the route itself is already decided.
-    </p>
-    <div class="comparison-row">
-      <div class="col">
-        <div class="figure-block">
-          <img src="images/convergence_by_size.png" alt="Trajectory convergence by size">
-          <div class="caption">Trajectory convergence between intermediate and final predictions. Step 5 already reaches 93% on 4&times;4 mazes.</div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="figure-block">
-          <img src="images/commitment_curve.png" alt="Refinement diversity curve">
-          <div class="caption">Re-noising at each step produces nearly identical trajectories, far below the cross-seed baseline. Plans are encoded in the initial noise.</div>
-        </div>
-      </div>
-    </div>
-    <div class="callout">
-      Since trajectories are locked in early, <strong>inference-time compute should be spent screening more candidates early</strong> rather than fully denoising every seed.
-    </div>
-  </div>
-</section>
+  <div class="divider"></div>
 
-<!-- ==================== SCREENING TRAJECTORIES ==================== -->
-<section id="exploration" class="section-dark">
-  <div class="container">
-    <h2>Screening Diverse Candidate Plans</h2>
-    <p class="section-subtitle">
-      Different noise seeds produce strikingly different motion plans on the same maze.
-      Our method, <strong>Early Planning Beam Search (EPBS)</strong>, partially denoises many candidates,
-      scores their early trajectory plans, and only fully renders the most promising ones.
-      Below, we visualize the diverse candidate trajectories sampled for a single maze&mdash;failed
-      paths appear as gray silhouettes, successful trajectories in vivid color.
-    </p>
-    <div class="video-grid cols-2">
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/ghost_size6_lake65_maze001.mp4" type="video/mp4">
-        </video>
-        <div class="label">6&times;6 Maze &mdash; Multiple Candidate Plans</div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/ghost_size8_lake20_maze001.mp4" type="video/mp4">
-        </video>
-        <div class="label">8&times;8 Maze &mdash; Multiple Candidate Plans</div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/ghost_size4_lake50_maze004.mp4" type="video/mp4">
-        </video>
-        <div class="label">4&times;4 Maze &mdash; Multiple Candidate Plans</div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/ghost_size10_lake65_maze006.mp4" type="video/mp4">
-        </video>
-        <div class="label">10&times;10 Maze &mdash; Multiple Candidate Plans</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== METHOD ==================== -->
-<section id="method">
-  <div class="container">
-    <h2>ChEaP: Chaining with Early Planning</h2>
-    <p class="section-subtitle">
-      <strong>Early Planning Beam Search (EPBS)</strong> exploits early plan commitment
-      to efficiently allocate inference-time compute. Instead of fully denoising every candidate,
-      EPBS screens early trajectory plans and only invests in promising seeds.
-    </p>
-    <div class="method-steps">
-      <div class="step-card">
-        <div class="step-num">1</div>
-        <h3>Partial Denoising</h3>
-        <p>Denoise N candidates for only &tau; steps to reveal early plans.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">2</div>
-        <h3>Early Screening</h3>
-        <p>Score each candidate's progress and constraint violations.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">3</div>
-        <h3>Beam Selection</h3>
-        <p>Fully denoise only the top-K most promising seeds.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">4</div>
-        <h3>Chaining</h3>
-        <p>Chain sequential generations for long-horizon mazes.</p>
-      </div>
-    </div>
-    <div class="figure-block" style="margin-top: 40px;">
-      <img src="images/acc_vs_nfe.png" alt="Accuracy vs NFE" style="max-width: 75%;">
-      <div class="caption">EPBS matches or exceeds best-of-N accuracy while using significantly fewer function evaluations across all maze sizes.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== EPBS IN ACTION ==================== -->
-<section id="results" class="section-dark">
-  <div class="container">
-    <h2>EPBS in Action</h2>
-    <p class="section-subtitle">
-      Successful trajectories generated by Wan2.2-14B with EPBS across maze sizes 4&times;4 through 10&times;10.
-    </p>
-    <div class="video-grid cols-2">
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/wan_s4_success.mp4" type="video/mp4">
-        </video>
-        <div class="label">4&times;4 <span class="tag tag-success">Solved</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/wan_s6_success.mp4" type="video/mp4">
-        </video>
-        <div class="label">6&times;6 <span class="tag tag-success">Solved</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/wan_s8_success.mp4" type="video/mp4">
-        </video>
-        <div class="label">8&times;8 <span class="tag tag-success">Solved</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/wan_s10_success.mp4" type="video/mp4">
-        </video>
-        <div class="label">10&times;10 <span class="tag tag-success">Solved</span></div>
-      </div>
-    </div>
-
-    <h3 class="section-h3">Same Maze, Different Seeds</h3>
-    <p class="section-subtitle">
-      Different noise seeds produce entirely different outcomes. EPBS identifies the promising candidate early.
-    </p>
-    <div class="video-grid cols-2" style="max-width:720px; margin: 20px auto 0;">
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/wan_s6_success.mp4" type="video/mp4">
-        </video>
-        <div class="label">Seed A <span class="tag tag-success">Solved</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/wan_fail_example.mp4" type="video/mp4">
-        </video>
-        <div class="label">Seed B <span class="tag tag-fail">Failed</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== CROSS-MODEL ==================== -->
-<section id="cross-model">
-  <div class="container">
-    <h2>Cross-Model Generalization</h2>
-    <p class="section-subtitle">
-      Our findings generalize across architectures. Both Wan2.2-14B (40-step flow matching)
-      and HunyuanVideo-1.5 (8-step distilled) exhibit early plan commitment.
-    </p>
-    <div class="video-grid cols-2" style="max-width:800px; margin: 20px auto 0;">
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/wan_s6_success.mp4" type="video/mp4">
-        </video>
-        <div class="label"><span class="tag tag-model">Wan2.2-14B</span> 6&times;6</div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/hunyuan_success_alt.mp4" type="video/mp4">
-        </video>
-        <div class="label"><span class="tag tag-model">HunyuanVideo-1.5</span> 6&times;6</div>
-      </div>
-    </div>
-    <div class="figure-block" style="margin-top: 36px;">
-      <img src="images/path_length.png" alt="Path length comparison" style="max-width: 55%;">
-      <div class="caption">EPBS success rate vs. path length. Both models degrade with path complexity, with a sharp threshold at ~12 steps.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== CHAINING ==================== -->
-<section id="chaining" class="section-alt">
-  <div class="container">
-    <h2>Chaining for Long-Horizon Reasoning</h2>
-    <p class="section-subtitle">
-      When a maze exceeds the model's single-generation horizon (&gt;12 steps), we chain sequential
-      generations&mdash;each picking up where the last left off. This decomposes long-horizon tasks
-      into shorter, solvable sub-problems.
-    </p>
-    <div class="placeholder" style="max-width:700px; margin: 0 auto 24px;">
-      [Chaining diagram placeholder &mdash; showing how Generation 1 hands off to Generation 2]
-    </div>
-    <div class="video-grid cols-3" style="max-width:900px; margin: 20px auto 0;">
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/chaining_success.mp4" type="video/mp4">
-        </video>
-        <div class="label">Chained 6&times;6 <span class="tag tag-success">Solved</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/chaining_success_s8.mp4" type="video/mp4">
-        </video>
-        <div class="label">Chained 8&times;8 <span class="tag tag-success">Solved</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/vrbench_success.mp4" type="video/mp4">
-        </video>
-        <div class="label">VR-Bench Trapfield <span class="tag tag-success">Solved</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== FAILURE ANALYSIS ==================== -->
-<section id="analysis">
-  <div class="container">
-    <h2>What Breaks When Video Models Fail?</h2>
-    <p class="section-subtitle">
-      Constraint violations dominate on small mazes; horizon limitations take over as mazes grow.
-      Path length&mdash;not obstacle density&mdash;is the dominant predictor of difficulty.
-    </p>
-    <div class="figure-block">
-      <img src="images/failure_modes.png" alt="Failure mode analysis" style="max-width: 75%;">
-      <div class="caption">Distribution of failure types across maze sizes for Wan2.2-14B and HunyuanVideo-1.5.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== GALLERY ==================== -->
-<section id="gallery" class="section-dark">
-  <div class="container">
-    <h2>Gallery</h2>
-    <p class="section-subtitle">
-      More examples of trajectory exploration, successful solves, and failure cases across
-      Frozen Lake and VR-Bench.
-    </p>
-
-    <h3 class="section-h3">Trajectory Exploration</h3>
-    <div class="video-grid cols-4">
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/ghost_size4_lake20_maze003.mp4" type="video/mp4">
-        </video>
-        <div class="label">4&times;4 &middot; Lake 20%</div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/ghost_size6_lake65_maze002.mp4" type="video/mp4">
-        </video>
-        <div class="label">6&times;6 &middot; Lake 65%</div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/ghost_size8_lake80_maze004.mp4" type="video/mp4">
-        </video>
-        <div class="label">8&times;8 &middot; Lake 80%</div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/ghost_size8_lake50_maze006.mp4" type="video/mp4">
-        </video>
-        <div class="label">8&times;8 &middot; Lake 50%</div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/ghost_size10_lake65_maze010.mp4" type="video/mp4">
-        </video>
-        <div class="label">10&times;10 &middot; Lake 65%</div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/ghost_size10_lake80_maze001.mp4" type="video/mp4">
-        </video>
-        <div class="label">10&times;10 &middot; Lake 80%</div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/ghost_size6_lake80_maze004.mp4" type="video/mp4">
-        </video>
-        <div class="label">6&times;6 &middot; Lake 80%</div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/ghost_size4_lake65_maze005.mp4" type="video/mp4">
-        </video>
-        <div class="label">4&times;4 &middot; Lake 65%</div>
-      </div>
-    </div>
-
-    <h3 class="section-h3">VR-Bench: Mazes</h3>
-    <div class="video-grid cols-4">
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/vrbench_maze1_easy.mp4" type="video/mp4">
-        </video>
-        <div class="label">Skin 1 &middot; Easy <span class="tag tag-success">Solved</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/vrbench_maze2_easy.mp4" type="video/mp4">
-        </video>
-        <div class="label">Skin 2 &middot; Easy <span class="tag tag-success">Solved</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/vrbench_maze3_med.mp4" type="video/mp4">
-        </video>
-        <div class="label">Skin 3 &middot; Medium <span class="tag tag-success">Solved</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/vrbench_maze4_easy.mp4" type="video/mp4">
-        </video>
-        <div class="label">Skin 4 &middot; Easy <span class="tag tag-success">Solved</span></div>
-      </div>
-    </div>
-
-    <h3 class="section-h3">VR-Bench: Trapfields</h3>
-    <div class="video-grid cols-4">
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/vrbench_trap1_med.mp4" type="video/mp4">
-        </video>
-        <div class="label">Skin 1 &middot; Medium <span class="tag tag-success">Solved</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/vrbench_trap2_easy.mp4" type="video/mp4">
-        </video>
-        <div class="label">Skin 2 &middot; Easy <span class="tag tag-success">Solved</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/vrbench_trap3_easy.mp4" type="video/mp4">
-        </video>
-        <div class="label">Skin 3 &middot; Easy <span class="tag tag-success">Solved</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/vrbench_trap4_hard.mp4" type="video/mp4">
-        </video>
-        <div class="label">Skin 4 &middot; Hard <span class="tag tag-success">Solved</span></div>
-      </div>
-    </div>
-
-    <h3 class="section-h3">Failure Cases</h3>
-    <div class="video-grid cols-4">
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/wan_fail_s4.mp4" type="video/mp4">
-        </video>
-        <div class="label">4&times;4 &mdash; Lake Entry <span class="tag tag-fail">Failed</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/wan_fail_example.mp4" type="video/mp4">
-        </video>
-        <div class="label">6&times;6 &mdash; Wrong Path <span class="tag tag-fail">Failed</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/wan_fail_s8.mp4" type="video/mp4">
-        </video>
-        <div class="label">8&times;8 &mdash; Stuck Early <span class="tag tag-fail">Failed</span></div>
-      </div>
-      <div class="video-card">
-        <video controls muted loop playsinline>
-          <source src="videos_cropped/wan_fail_s8.mp4" type="video/mp4">
-        </video>
-        <div class="label">8&times;8 &mdash; Wrong Path <span class="tag tag-fail">Failed</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== BIBTEX ==================== -->
-<section id="bibtex">
-  <div class="container narrow">
-    <h2>BibTeX</h2>
+  <div class="bibtex-section">
+    <div class="bibtex-title">BibTeX</div>
     <div class="bibtex-box">
       <button class="copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('bib-text').innerText)">Copy</button>
 <pre id="bib-text">@article{newman2025videomodelsreason,
@@ -480,17 +414,16 @@
   author    = {Newman, Kaleb and Zhu, Tyler and
                Russakovsky, Olga},
   journal   = {arXiv preprint},
-  year      = {2025}
+  year      = {2026}
 }</pre>
     </div>
   </div>
-</section>
 
-<footer>
-  <div class="container">
-    <p>Video Models Reason Early &copy; 2025 &middot; <a href="https://www.cs.princeton.edu/">Princeton University</a></p>
+  <div class="footer">
+    <p>Video Models Reason Early &copy; 2026 &middot; <a href="https://www.cs.princeton.edu/">Princeton University</a></p>
   </div>
-</footer>
+
+</div>
 
 </body>
 </html>
