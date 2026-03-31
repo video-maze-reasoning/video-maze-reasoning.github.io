@@ -15,7 +15,7 @@
       --text-dim: #a0aec0;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 10px; }
+    html { scroll-behavior: smooth; font-size: 13px; }
     body {
       font-family: 'Inter', system-ui, sans-serif;
       background: linear-gradient(160deg, #1a1636 0%, #252247 30%, #3d3675 65%, #302b5a 100%);
@@ -108,9 +108,9 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 11px 24px;
+      padding: 16px 36px;
       border-radius: 50px;
-      font-size: 0.9rem;
+      font-size: 1.5rem;
       font-weight: 700;
       text-decoration: none;
       transition: transform 0.2s, box-shadow 0.2s;
@@ -152,16 +152,10 @@
     .lockin-strip {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 10px;
+      gap: 12px;
       margin-bottom: 56px;
-      width: 100vw;
-      max-width: 1700px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 0 24px;
+      max-width: 100%;
+      padding: 0;
     }
     .lockin-strip video {
       width: 100%;
@@ -241,7 +235,7 @@
       border-radius: 10px;
       padding: 20px 24px;
       font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-      font-size: 0.85rem;
+      font-size: 1.2rem;
       line-height: 1.6;
       color: #a8d8ea;
       overflow-x: auto;
@@ -290,11 +284,11 @@
     Exploiting Plan Commitment for Maze Solving
   </h1>
 
-  <p class="authors">Kaleb Newman &nbsp;&middot;&nbsp; Tyler Zhu &nbsp;&middot;&nbsp; Olga Russakovsky</p>
+  <p class="authors"><a href="https://knewman2.github.io/" style="color: inherit; text-decoration: none;">Kaleb Newman</a> &nbsp;&middot;&nbsp; <a href="https://tylerzhu.com/" style="color: inherit; text-decoration: none;">Tyler Zhu</a> &nbsp;&middot;&nbsp; <a href="https://www.cs.princeton.edu/~olgarus/" style="color: inherit; text-decoration: none;">Olga Russakovsky</a></p>
   <p class="affiliation">Princeton University</p>
 
   <p class="synopsis">
-    Video diffusion models commit to a high-level motion plan within the first few denoising steps when solving mazesW.
+    Video diffusion models commit to a high-level motion plan within the first few denoising steps when solving mazes.
     We exploit this <strong>early plan commitment</strong> to build ChEaP, which screens diverse candidate
     trajectories early and chains them together to solve mazes far beyond the single-generation horizon&mdash;improving
     accuracy from <strong>7% to 67%</strong> on long mazes and by <strong>2.5&times;</strong> overall on hard tasks.
