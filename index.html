@@ -6,6 +6,8 @@
   <title>Video Models Reason Early</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
       --accent-1: #6c5ce7;
@@ -17,7 +19,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 13px; }
     body {
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Montserrat', 'Roboto', 'Inter', system-ui, sans-serif;
       background: #f8f9fc;
       color: var(--text);
       min-height: 100vh;
@@ -61,7 +63,7 @@
 
     h1 {
       font-size: 3.4rem;
-      font-weight: 800;
+      font-weight: 700;
       line-height: 1.12;
       letter-spacing: -1px;
       margin-bottom: 20px;
@@ -80,12 +82,12 @@
       font-size: 1.5rem;
       color: #4a5568;
       margin-bottom: 10px;
-      font-weight: 500;
+      font-weight: 400;
     }
     .affiliation {
       font-size: 1.5rem;
       color: var(--text-dim);
-      margin-bottom: 36px;
+      margin-bottom: 12px;
     }
 
     .synopsis {
@@ -103,15 +105,15 @@
       gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: 15px;
+      margin-bottom: 36px;
     }
     .links a {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 10px 24px;
+      padding: 12px 24px;
       border-radius: 50px;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: 700;
       text-decoration: none;
       transition: transform 0.2s, box-shadow 0.2s;
@@ -218,6 +220,24 @@
     }
 
     /* BibTeX */
+    .references-section {
+      max-width: 700px;
+      margin: 0 auto 40px;
+      text-align: left;
+    }
+    .references-section .section-title {
+      text-align: center;
+    }
+    .references-section ol {
+      padding-left: 20px;
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: #4a5568;
+    }
+    .references-section ol li { margin-bottom: 8px; }
+    .references-section a { color: var(--accent-1); text-decoration: none; }
+    .references-section a:hover { text-decoration: underline; }
+
     .bibtex-section {
       max-width: 700px;
       margin: 0 auto 40px;
@@ -270,7 +290,7 @@
     /* Figure blocks */
     .fig-block { text-align: center; margin: 32px auto; }
     .fig-block img { max-width: 100%; border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
-    .fig-caption { font-size: 0.95rem; color: var(--text-dim); max-width: 700px; margin: 10px auto 0; line-height: 1.5; }
+    .fig-caption { font-size: 1.2rem; color: var(--text-dim); max-width: 700px; margin: 10px auto 0; line-height: 1.5; }
 
     /* Two-column figure row */
     .fig-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 28px auto; max-width: 900px; }
@@ -297,9 +317,37 @@
     .vid-grid.c2 { grid-template-columns: repeat(2, 1fr); max-width: 700px; }
     .vid-grid.c3 { grid-template-columns: repeat(3, 1fr); max-width: 900px; }
     .vid-grid.c4 { grid-template-columns: repeat(4, 1fr); }
-    .vid-card { border-radius: 10px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .vid-card { border-radius: 10px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: relative; }
     .vid-card video { width: 100%; display: block; aspect-ratio: 480/464; object-fit: cover; }
     .vid-card .vlabel { padding: 8px 10px; font-size: 0.85rem; font-weight: 600; text-align: center; color: var(--text); }
+    .vid-card .prompt-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.82);
+      color: #f0f0f0;
+      opacity: 0;
+      transition: opacity 0.25s;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      overflow-y: auto;
+      text-align: left;
+      pointer-events: none;
+    }
+    .vid-card:hover .prompt-overlay { opacity: 1; pointer-events: auto; }
+    .prompt-overlay .prompt-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #55efc4;
+      margin-bottom: 6px;
+      flex-shrink: 0;
+    }
+    .prompt-overlay .prompt-text {
+      font-size: 0.7rem;
+      line-height: 1.45;
+      color: #dfe6e9;
+      white-space: pre-wrap;
+    }
     .tag { display:inline-block; padding:2px 7px; border-radius:50px; font-size:0.7rem; font-weight:700; margin-left:3px; letter-spacing:0.3px; text-transform:uppercase; }
     .tag-ok { background:#d4edda; color:#155724; }
     .tag-fail { background:#f8d7da; color:#721c24; }
@@ -345,11 +393,15 @@
   <p class="authors"><a href="https://knewman2.github.io/" style="color:inherit;text-decoration:none;">Kaleb Newman</a> &nbsp;&middot;&nbsp; <a href="https://tylerzhu.com/" style="color:inherit;text-decoration:none;">Tyler Zhu</a> &nbsp;&middot;&nbsp; <a href="https://www.cs.princeton.edu/~olgarus/" style="color:inherit;text-decoration:none;">Olga Russakovsky</a></p>
   <p class="affiliation">Princeton University</p>
 
+  <div class="links">
+    <a href="https://arxiv.org/abs/2603.30043" class="btn-arxiv">&#128218; arXiv</a>
+  </div>
+
   <p class="synopsis">
     Video generation models have demonstrated emergent reasoning capabilities like solving mazes, puzzles, and physical reasoning tasks without task-specific training.
     Yet despite growing interest, we lack a basic understanding of <em>how</em> such reasoning emerges during generation and how reliably we can elicit it.
     We study the internal planning dynamics of video models using maze-solving as a controlled testbed. We discover
-    <strong>early plan commitment</strong>:video diffusion models
+    <strong>early plan commitment</strong>: video diffusion models
     commit to a high-level motion plan within the first few denoising steps,
     after which further denoising alters visual details but not the underlying
     trajectory.
@@ -357,26 +409,59 @@
     <strong>7% to 67%</strong> on long mazes and by <strong>2.5&times;</strong> overall on hard tasks.
   </p>
 
-  <div class="links">
-    <a href="https://arxiv.org/abs/2603.30043" class="btn-arxiv">&#128218; arXiv</a>
-  </div>
 
   <div class="divider"></div>
 
   <!-- ==================== VIDEO MODELS CAN REASON ==================== -->
   <div class="section-title">Video Models Can Reason</div>
   <p class="section-desc">
-    Given just an image of a maze and a text prompt, off-the-shelf video diffusion models can successfully generate solutions to complex mazes
-    across a range of diverse visual settings.
+    Given just an image of a maze and a text prompt (hover to see!), off-the-shelf video diffusion models can successfully generate solutions to complex mazes
+    across a range of diverse visual settings <a href="#references">[1]</a>.
   </p>
 
   <div class="vid-grid c3">
-    <div class="vid-card"><video autoplay muted loop playsinline><source src="videos_cropped/intro/intro_s4_size_4_norm_lake_20_maze_001_seed_101604.mp4" type="video/mp4"></video></div>
-    <div class="vid-card"><video autoplay muted loop playsinline><source src="videos_cropped/intro/intro_s6_size_6_norm_lake_20_maze_001_seed_428424.mp4" type="video/mp4"></video></div>
-    <div class="vid-card"><video autoplay muted loop playsinline><source src="videos_cropped/intro/intro_fl3.mp4" type="video/mp4"></video></div>
-    <div class="vid-card"><video autoplay muted loop playsinline><source src="videos_cropped/intro/intro_vr_maze_1_new.mp4" type="video/mp4"></video></div>
-    <div class="vid-card"><video autoplay muted loop playsinline><source src="videos_cropped/intro/intro_vr_maze_2_easy_puzzle_0002_seed_351910.mp4" type="video/mp4"></video></div>
-    <div class="vid-card"><video autoplay muted loop playsinline><source src="videos_cropped/intro/intro_vr_maze4_easy.mp4" type="video/mp4"></video></div>
+    <div class="vid-card">
+      <video autoplay muted loop playsinline><source src="videos_cropped/intro/intro_s4_size_4_norm_lake_20_maze_001_seed_101604.mp4" type="video/mp4"></video>
+      <div class="prompt-overlay"><div class="prompt-title">Frozen Lake Prompt</div><div class="prompt-text">Animate the elf moving step by step toward the gift while carefully avoiding the icy frozen lake. Highlight the successful path and end with the elf touching the gift. There are no changes to the layout of the maze. No new lakes or characters appear. Static camera. No zoom. No pan. No glitches, noise, or artifacts.</div></div>
+    </div>
+    <div class="vid-card">
+      <video autoplay muted loop playsinline><source src="videos_cropped/intro/intro_s6_size_6_norm_lake_20_maze_001_seed_428424.mp4" type="video/mp4"></video>
+      <div class="prompt-overlay"><div class="prompt-title">Frozen Lake Prompt</div><div class="prompt-text">Animate the elf moving step by step toward the gift while carefully avoiding the icy frozen lake. Highlight the successful path and end with the elf touching the gift. There are no changes to the layout of the maze. No new lakes or characters appear. Static camera. No zoom. No pan. No glitches, noise, or artifacts.</div></div>
+    </div>
+    <div class="vid-card">
+      <video autoplay muted loop playsinline><source src="videos_cropped/intro/intro_fl3.mp4" type="video/mp4"></video>
+      <div class="prompt-overlay"><div class="prompt-title">Frozen Lake Prompt</div><div class="prompt-text">Animate the elf moving step by step toward the gift while carefully avoiding the icy frozen lake. Highlight the successful path and end with the elf touching the gift. There are no changes to the layout of the maze. No new lakes or characters appear. Static camera. No zoom. No pan. No glitches, noise, or artifacts.</div></div>
+    </div>
+    <div class="vid-card">
+      <video autoplay muted loop playsinline><source src="videos_cropped/intro/intro_vr_maze_1_new.mp4" type="video/mp4"></video>
+      <div class="prompt-overlay"><div class="prompt-title">VR-Bench Maze Prompt (Skin 1)</div><div class="prompt-text">Create a 2D animation based on the provided image of a maze. The red circle slides smoothly along the white square path, stopping perfectly on the green square. The red circle never slides or crosses into the light blue square areas of the maze. The camera is a static, top-down view showing the entire maze.
+
+Maze: The maze paths are white square, the walls are light blue square. The red circle moves to the goal position, represented by green square. The red circle slides smoothly along the white square path. The red circle never slides or crosses into the light blue square areas of the maze. The red circle stops perfectly on the green square.
+
+Scene: No change in scene composition. No change in the layout of the maze. The red circle travels along the white square path without speeding up or slowing down.
+
+Camera: Static camera. No zoom. No pan. No glitches, noise, or artifacts.</div></div>
+    </div>
+    <div class="vid-card">
+      <video autoplay muted loop playsinline><source src="videos_cropped/intro/intro_vr_maze_2_easy_puzzle_0002_seed_351910.mp4" type="video/mp4"></video>
+      <div class="prompt-overlay"><div class="prompt-title">VR-Bench Maze Prompt (Skin 2)</div><div class="prompt-text">Create a 2D animation based on the provided image of a maze. The white rabbit slides smoothly along the green grass tiles path, stopping perfectly on the orange carrots. The white rabbit never slides or crosses into the gray rock areas of the maze. The camera is a static, top-down view showing the entire maze.
+
+Maze: The maze paths are green grass tiles, the walls are gray rock. The white rabbit moves to the goal position, represented by orange carrots. The white rabbit slides smoothly along the green grass tiles path. The white rabbit never slides or crosses into the gray rock areas of the maze. The white rabbit stops perfectly on the orange carrots.
+
+Scene: No change in scene composition. No change in the layout of the maze. The white rabbit travels along the green grass tiles path without speeding up or slowing down.
+
+Camera: Static camera. No zoom. No pan. No glitches, noise, or artifacts.</div></div>
+    </div>
+    <div class="vid-card">
+      <video autoplay muted loop playsinline><source src="videos_cropped/intro/intro_vr_maze4_easy.mp4" type="video/mp4"></video>
+      <div class="prompt-overlay"><div class="prompt-title">VR-Bench Maze Prompt (Skin 4)</div><div class="prompt-text">Create a 2D animation based on the provided image of a maze. The anime schoolgirl slides smoothly along the wooden floor tiles path, stopping perfectly on the green square. The anime schoolgirl never slides or crosses into the gray stone wall areas of the maze. The camera is a static, top-down view showing the entire maze.
+
+Maze: The maze paths are wooden floor tiles, the walls are gray stone wall. The anime schoolgirl moves to the goal position, represented by green square. The anime schoolgirl slides smoothly along the wooden floor tiles path. The anime schoolgirl never slides or crosses into the gray stone wall areas of the maze. The anime schoolgirl stops perfectly on the green square.
+
+Scene: No change in scene composition. No change in the layout of the maze. The anime schoolgirl travels along the wooden floor tiles path without speeding up or slowing down.
+
+Camera: Static camera. No zoom. No pan. No glitches, noise, or artifacts.</div></div>
+    </div>
   </div>
 
   <p class="body-text">
@@ -442,22 +527,22 @@
 
   <p class="body-text">
     A natural follow-up: can we get diverse trajectories by <em>refining</em> the same seed?
-    Refinement&mdash;re-noising an intermediate prediction and continuing denoising&mdash;is a common technique
+    Refinement, i.e., re-noising an intermediate prediction and continuing denoising, is a common technique
     for sample diversity in flow matching. We find it produces at most 25% trajectory diversity, compared to 68%
-    between entirely different seeds (dashed line). <strong>The route is encoded in the initial noise,
-    and refinement cannot escape it.</strong>
+    between entirely different seeds (dashed line). <strong>The trajectory is encoded in the initial noise,
+    and refinement cannot change it.</strong>
   </p>
 
   <div class="callout">
     If early trajectories predict final success, then <strong>inference-time compute should screen more candidate trajectories</strong> rather than fully denoising every seed.
   </div>
 
-  <div class="divider"></div>
+  <!-- <div class="divider"></div> -->
 
   <!-- ==================== EPBS ==================== -->
-  <div class="section-title">Early Planning Beam Search (EPBS)</div>
+  <!-- <div class="section-title">Early Planning Beam Search (EPBS)</div> -->
   <p class="body-text">
-    This insight motivates <strong>EPBS</strong>: instead of fully denoising every seed, we partially denoise
+    This insight motivates <strong>Early Planning Beam Search (EPBS)</strong>: instead of fully denoising every seed, we partially denoise
     a large pool of candidates for just a few steps, decode their early trajectory plans, and score them with a
     lightweight verifier. Only the top-K candidates are fully denoised&mdash;the rest are discarded, saving the
     vast majority of compute. Under a fixed budget of function evaluations, EPBS screens far more candidate
@@ -618,6 +703,15 @@
   </div>
 
   <!-- ==================== BIBTEX ==================== -->
+  <div class="divider"></div>
+
+  <div id="references" class="references-section">
+    <div class="section-title">References</div>
+    <ol>
+      <li>Thaddäus Wiedemer, Yuxuan Li, Paul Vicol, Shixiang Shane Gu, Nick Matarese, Kevin Swersky, Been Kim, Priyank Jaini, and Robert Geirhos. "Video Models are Zero-Shot Learners and Reasoners." <em>arXiv preprint arXiv:2509.20328</em>, 2025. <a href="https://arxiv.org/abs/2509.20328">arXiv</a></li>
+    </ol>
+  </div>
+
   <div class="divider"></div>
 
   <div class="bibtex-section">
